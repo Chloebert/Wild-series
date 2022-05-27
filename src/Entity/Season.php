@@ -6,7 +6,9 @@ use App\Repository\SeasonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
+#[Assert\EnableAutoMapping]
 #[ORM\Entity(repositoryClass: SeasonRepository::class)]
 class Season
 {
@@ -16,15 +18,31 @@ class Season
     private $id;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank(message: 'Merci de mettre un numéro de saison')]
+    #[Assert\Positive]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'Vous devez entrer un numéro.',
+    )]
     private $number;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank(message: 'Merci de mettre une année.')]
+    #[Assert\Positive]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'Vous devez entrer une année.',
+    )]
+    #[Assert\GreaterThan(4, 
+    message: 'L\'année doit faire 4 caractères')]
     private $year;
 
     #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank(message: 'Merci d\'entrer une description')]
     private $description;
 
     #[ORM\ManyToOne(targetEntity: Program::class, inversedBy: 'seasons')]
+    #[Assert\NotBlank(message: 'Il faut sélectionner un programme')]
     #[ORM\JoinColumn(nullable: false)]
     private $program;
 

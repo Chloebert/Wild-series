@@ -6,7 +6,11 @@ use App\Repository\ProgramRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[Assert\EnableAutoMapping]
+#[UniqueEntity('title')]
 #[ORM\Entity(repositoryClass: ProgramRepository::class)]
 class Program
 {
@@ -15,10 +19,13 @@ class Program
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', name: 'title', length: 255)]
     private $title;
 
     #[ORM\Column(type: 'text')]
+    #[Assert\Regex(pattern : '/plus belle la vie/',
+    match: false,
+    message: 'On parle de vraies séries ici',)]
     private $synopsis;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
