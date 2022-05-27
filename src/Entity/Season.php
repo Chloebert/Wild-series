@@ -33,7 +33,6 @@ class Season
 
     public function __construct()
     {
-        $this->program = new ArrayCollection();
         $this->episodes = new ArrayCollection();
     }
 
