@@ -37,7 +37,7 @@ class Program
     #[ORM\OneToMany(mappedBy: 'program', targetEntity: Season::class)]
     private $seasons;
 
-    #[ORM\ManyToMany(targetEntity: Actor::class, mappedBy: 'programs')]
+    #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'programs')]
     private $actors;
 
     public function __construct()

@@ -18,7 +18,7 @@ class Actor
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\ManyToMany(targetEntity: Program::class, inversedBy: 'actors')]
+    #[ORM\ManyToMany(targetEntity: Program::class, mappedBy: 'actors')]
     private $programs;
 
     public function __construct()
