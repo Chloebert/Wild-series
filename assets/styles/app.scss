@@ -1,10 +1,71 @@
-$primary : #C1C3F1;
-$secondary: #865BFF;
+@import url('https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400;0,500;1,400&family=Fjord+One&family=Gafata&display=swap');
+
+$primary : #aaace4;
+$secondary: #4f31a3;
 $dark: #696767;
 $light: #EFEEEE;
 
 @import "~bootstrap/scss/bootstrap";
 
+$header-font: 'Familjen Grotesk', sans-serif;
+$title-font: 'Fjord One', serif;
+$main-font: 'Gafata', sans-serif;
+
 body {
     background-color: $light;
+}
+
+.welcome {
+    font-size: 10rem;
+    font-family: $title-font;
+}
+
+.navbar-brand {
+    font-family: $header-font;
+    font-size: 2rem;
+    text-shadow: 1px 1px 1px $light;
+}
+
+.logo {
+    height: 30px;
+    width: 30px;
+}
+
+.nav-item {
+    font-family: $main-font;
+    font-size: 1.2rem; 
+}
+
+.bi-tv {
+    height: 2rem;
+}
+
+.page-title {
+    font-size: 4rem;
+    font-family: $title-font;
+    -webkit-text-stroke: 1px $secondary;
+    text-shadow: 1px 1px 1px $secondary;
+}
+
+.card-title {
+    font-family: $header-font;
+    color: $secondary;
+    font-size: 2rem;
+}
+
+.card-text {
+    font-family: $main-font;
+}
+
+a {
+    color: $secondary;
+    text-decoration: none;
+}
+
+.btn {
+    opacity: 90%;
+}
+
+.btn:hover {
+    opacity:100%;
 }

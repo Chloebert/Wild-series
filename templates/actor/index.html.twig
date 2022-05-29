@@ -1,27 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}All Categories
+{% block title %}All Actors
 {% endblock %}
 
 {% block body %}
 	<div class="bg-primary mt-4 rounded container">
 		<h1 class="text-light mt-5 pt-2 text-center page-title">Les catégories
 		</h1>
-		{% for category in categories %}
+		{% for actor in actors %}
 			<div class="row mx-auto">
 				<div class="col-12 mt-2">
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">{{ loop.index }}
 								/
-								{{ category.name }}</h5>
-							<a class="btn w-30 bg-primary text-secondary position-absolute end-0 bottom-0 me-3 mb-3" href="{{ path("category_show", { categoryName: category.name }) }}">Voir les séries</a>
+								{{ actor.name }}</h5>
+							<a class="btn w-30 bg-primary text-secondary position-absolute end-0 bottom-0 me-3 mb-3" href="{{ path("actor_show", { id: actor.id }) }}">Voir l'acteur</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		{% else %}
-			Aucune catégorie trouvée.
+			Aucun acteur trouvé.
 		{% endfor %}
 
 		<a href="{{ path('app_index') }}">
