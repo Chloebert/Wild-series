@@ -3,7 +3,8 @@
     <h1>New episode {{ episode.title }} created</h1>
 {% endblock %}
 {% block description %}
-    <p>Hello, the new episode {{ episode.title }} from {{ episode.season.program.title }} has been created on Wild Series</p>
-    <p>Synopsis : {{episode.synopsis }} 
+    <p>Hello, the new episode {{ episode.number }} : {{ episode.title }} from {{ episode.season.program.title }} has been created on Wild Series</p>
+    <p>Synopsis : {{episode.synopsis }} </p>
+    <a href='http://localhost:8000/episode/{{ episode.slug }}'>See</a>
 {% endblock %}
 
