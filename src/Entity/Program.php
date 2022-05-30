@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-#[Assert\EnableAutoMapping]
 #[UniqueEntity('title')]
 #[ORM\Entity(repositoryClass: ProgramRepository::class)]
 class Program
@@ -20,25 +19,61 @@ class Program
     private $id;
 
     #[ORM\Column(type: 'string', name: 'title', length: 255)]
+    #[Assert\NotBlank(
+        message: 'Le titre est nécessaire.'
+    )]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'Le titre doit faire moins de 255 caractères'
+    )]
     private $title;
 
     #[ORM\Column(type: 'text')]
-    #[Assert\Regex(pattern : '/plus belle la vie/',
-    match: false,
-    message: 'On parle de vraies séries ici',)]
+    #[Assert\Regex(
+        pattern: '/plus belle la vie/',
+        match: false,
+        message: 'On parle de vraies séries ici',
+    )]
+    #[
+        Assert\NotBlank(
+            message: 'Le synopsis est nécessaire.'
+        )
+    ]
     private $synopsis;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[
+        Assert\NotBlank(
+            message: 'Le poster est nécessaire.'
+        )
+    ]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'Le poster doit faire moins de 255 caractères'
+    )]
     private $poster;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'programs')]
+    #[
+        Assert\NotBlank(
+            message: 'La catégorie est nécessaire.'
+        )
+    ]
     private $category;
 
     #[ORM\OneToMany(mappedBy: 'program', targetEntity: Season::class)]
     private $seasons;
 
     #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'programs')]
+    #[
+        Assert\NotBlank(
+            message: 'Un acteur est nécessaire.'
+        )
+    ]
     private $actors;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $slug;
 
     public function __construct()
     {
@@ -152,6 +187,18 @@ class Program
         if ($this->actors->removeElement($actor)) {
             $actor->removeProgram($this);
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
