@@ -14,6 +14,7 @@ use App\Form\ProgramType;
 use App\Entity\Program;
 use App\Entity\Season;
 use App\Entity\Episode;
+use App\Service\Slugify;
 
 #[Route('/program', name: 'program_')]
 class ProgramController extends AbstractController
@@ -29,7 +30,7 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/new', name: 'new')]
-    public function new(Request $request, programRepository $programRepository): Response
+    public function new(Request $request, programRepository $programRepository, Slugify $slugify): Response
     {
         $program = new Program();
 
@@ -38,10 +39,12 @@ class ProgramController extends AbstractController
 
         // Get data from HTTP request
         $form->handleRequest($request);
+
         // Was the form submitted ?
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $slugify->generate($program->getTitle());
+            $program->setSlug($slug);
             $programRepository->add($program, true);
-
             // Redirect to categories list
             return $this->redirectToRoute('program_index');
         }
@@ -52,7 +55,7 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{program}', requirements: ['program' => '\d+'], methods: ['GET'], name: 'show')]
+    #[Route('/{slug}', methods: ['GET'], name: 'show')]
     public function show(Program $program, SeasonRepository $seasonRepository): Response
     {
 
@@ -65,7 +68,7 @@ class ProgramController extends AbstractController
         return $this->render('program/show.html.twig', ['program' => $program, 'seasons' => $seasons]);
     }
 
-    #[Route('/{program}/season/{season}', requirements: ['program' => '\d+', 'season' => '\d+'], methods: ['GET'], name: 'season_show')]
+    #[Route('/{slug}/season/{season}', requirements: ['season' => '\d+'], methods: ['GET'], name: 'season_show')]
     public function showSeason(Program $program, Season $season, EpisodeRepository $episodeRepository): Response
     {
         if (!$program) {
@@ -77,7 +80,7 @@ class ProgramController extends AbstractController
         return $this->render('program/season_show.html.twig', ['program' => $program, 'season' => $season, 'episodes' => $episodes]);
     }
 
-    #[Route('/{program}/season/{season}/episode/{episode}', requirements: ['program' => '\d+', 'season' => '\d+', 'episode' => '\d+'], methods: ['GET'], name: 'episode_show')]
+    #[Route('/{slug}/season/{season}/episode/{episode}', requirements: ['season' => '\d+', 'episode' => '\d+'], methods: ['GET'], name: 'episode_show')]
     public function showEpisode(Program $program, Season $season, Episode $episode)
     {
 

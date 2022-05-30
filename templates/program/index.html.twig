@@ -19,7 +19,7 @@
 				- Catégorie :
 				{{ program.category.name }}</h5>
         <p class="card-text text-dark mb-5">{{ program.synopsis }}</p>
-        <a class="btn bg-primary btn-md text-secondary position-absolute end-0 bottom-0 me-3 mb-3" href="{{ path("program_show", { program: program.id }) }}">Voir la fiche</a>
+        <a class="btn bg-primary btn-md text-secondary position-absolute end-0 bottom-0 me-3 mb-3" href="{{ path("program_show", { slug: program.slug }) }}">Voir la fiche</a>
 		</div>
       </div>
     </div>

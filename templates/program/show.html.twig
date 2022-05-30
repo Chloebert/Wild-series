@@ -23,7 +23,7 @@
 				<div class="row justify-content-center">
 					{% for season in seasons %}
 						<div class="col-lg-3 col-md-6 w-50 mt-1">
-							<a class="w-50 btn bg-light" href="{{ path("program_season_show", { program: program.id, season: season.id }) }}">
+							<a class="w-50 btn bg-light" href="{{ path("program_season_show", { slug: program.slug, season: season.id }) }}">
 								<p class="text-center align-self-center">Saison -
 									{{ season.number }}
 								</p>

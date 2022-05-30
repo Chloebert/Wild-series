@@ -24,8 +24,7 @@ class ProgramType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => false,
-                ])
-            ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
