@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use doctrine\persistence\ManagerRegisty;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
@@ -80,7 +81,9 @@ class ProgramController extends AbstractController
         return $this->render('program/season_show.html.twig', ['program' => $program, 'season' => $season, 'episodes' => $episodes]);
     }
 
-    #[Route('/{slug}/season/{season}/episode/{episode}', requirements: ['season' => '\d+', 'episode' => '\d+'], methods: ['GET'], name: 'episode_show')]
+    #[Route('/{slug}/season/{season}/episode/{episodeSlug}', requirements: ['season' => '\d+'], methods: ['GET'], name: 'episode_show')]
+    #[ParamConverter('program', options: ['mapping' => ['slug' => 'slug']])]
+    #[ParamConverter('episode', options: ['mapping' => ['episodeSlug' => 'slug']])]
     public function showEpisode(Program $program, Season $season, Episode $episode)
     {
 
