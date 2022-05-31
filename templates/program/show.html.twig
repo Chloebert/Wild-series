@@ -4,11 +4,10 @@
 {% endblock %}
 
 {% block body %}
-	<div class="bg-primary mt-4 rounded container">
-		<div class="media">
+	<div class="media bg-primary mt-4 rounded container">
 			<img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
 			<div class="media-body">
-				<h1 class="mt-0 page-title text-light">{{ program.title }}</h1>
+				<h1 class="mt-0 page-title text-secondary">{{ program.title }}</h1>
 				<p class="mx-2">{{ program.synopsis }}</p>
 				<p class="mx-2 text-secondary">Catégorie :
 					{{ program.category.name }}</p>
@@ -22,8 +21,8 @@
 				</ul>
 				<div class="row justify-content-center">
 					{% for season in seasons %}
-						<div class="col-lg-3 col-md-6 w-50 mt-1">
-							<a class="w-50 btn bg-light" href="{{ path("program_season_show", { slug: program.slug, season: season.id }) }}">
+						<div class="col-lg-3 col-md-6 mx-auto mt-1">
+							<a class="btn w-100 bg-light" href="{{ path("program_season_show", { slug: program.slug, season: season.id }) }}">
 								<p class="text-center align-self-center">Saison -
 									{{ season.number }}
 								</p>
@@ -32,7 +31,6 @@
 					{% endfor %}
 				</div>
 			</div>
-		</div>
 
 
 		<a href="{{ path('program_index') }}">

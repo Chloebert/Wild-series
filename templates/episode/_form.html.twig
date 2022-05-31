@@ -1,4 +1,7 @@
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+<div class="d-flex justify-content-center">
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <button class="btn btn-lg w-75 bg-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+</div>
