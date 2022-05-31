@@ -64,7 +64,7 @@ class Program
     #[ORM\OneToMany(mappedBy: 'program', targetEntity: Season::class)]
     private $seasons;
 
-    #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'programs')]
+    #[ORM\ManyToMany(targetEntity: Actor::class, mappedBy: 'programs')]
     #[
         Assert\NotBlank(
             message: 'Un acteur est nécessaire.'
@@ -164,6 +164,18 @@ class Program
         return $this;
     }
 
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Actor>
      */
@@ -187,18 +199,6 @@ class Program
         if ($this->actors->removeElement($actor)) {
             $actor->removeProgram($this);
         }
-
-        return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
 
         return $this;
     }
