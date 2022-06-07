@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer le programme{% endblock %}
+
+{% block body %}
+    <h1>Editer le programme</h1>
+
+    {{ include('program/_form.html.twig', {'button_label': 'Editer'}) }}
+
+    <a href="{{ path('program_index') }}">back to list</a>
+
+{% endblock %}

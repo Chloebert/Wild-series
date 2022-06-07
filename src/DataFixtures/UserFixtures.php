@@ -28,18 +28,20 @@ class UserFixtures extends Fixture
             'adminpassword'
         );
         $admin->setPassword($hashedPassword);
+        $this->addReference('admin', $admin);
 
 
         $manager->persist($admin);
 
         $member = new User();
-        $member->setEmail('member@wildseries.com');
-        $member->setRoles(['ROLE_MEMBER']);
+        $member->setEmail('contributor@wildseries.com');
+        $member->setRoles(['ROLE_CONTRIBUTOR']);
         $hashedPassword = $this->passwordHasher->hashPassword(
             $member,
             'memberpassword'
         );
         $member->setPassword($hashedPassword);
+        $this->addReference('contributor', $member);
 
         $manager->persist($member);
 

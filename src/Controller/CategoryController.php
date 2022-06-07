@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use doctrine\persistence\ManagerRegisty;
 use App\Repository\CategoryRepository;
 use App\Repository\ProgramRepository;
@@ -26,6 +27,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/new', name: 'new')]
+    #[IsGranted('ROLE_ADMIN', null, "Seul l'admin peut ajouter une catégorie.")]
     public function new(Request $request, CategoryRepository $categoryRepository): Response
     {
         $category = new Category();

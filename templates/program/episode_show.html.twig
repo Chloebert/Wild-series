@@ -27,11 +27,16 @@
 				<div class="bg-light">
 					<p>{{ comment.comment }}}</p>
 				</div>
+                	{% if (app.user == comment.author) or (is_granted("ROLE_ADMIN")) %}
+		<div class="w-50 justify-content-center btn btn-light">
+			{% include "comment/_delete_form.html.twig" %}
+		</div>
+	{% endif %}
 			</div>
 	{% endfor %}
     </div>
 
-	{% if app.user %}
+	{% if is_granted("ROLE_CONTRIBUTOR") or is_granted("ROLE_ADMIN") %}
 		<h2 class="mx-5">
 			Laisser un commentaire</h2>
 		<div class="d-flex justify-content-center">

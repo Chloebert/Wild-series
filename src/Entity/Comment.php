@@ -27,6 +27,7 @@ class Comment
     private $episode_id;
 
     public function getId(): ?int
+
     {
         return $this->id;
     }

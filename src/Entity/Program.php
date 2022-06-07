@@ -75,6 +75,10 @@ class Program
     #[ORM\Column(type: 'string', length: 255)]
     private $slug;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'programs')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $owner;
+
     public function __construct()
     {
         $this->seasons = new ArrayCollection();
@@ -199,6 +203,18 @@ class Program
         if ($this->actors->removeElement($actor)) {
             $actor->removeProgram($this);
         }
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }

@@ -5,33 +5,35 @@
 
 {% block body %}
 	<div class="media bg-primary mt-4 rounded container">
-			<img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
-			<div class="media-body">
-				<h1 class="mt-0 page-title text-secondary">{{ program.title }}</h1>
-				<p class="mx-2">{{ program.synopsis }}</p>
-				<p class="mx-2 text-secondary">Catégorie :
-					{{ program.category.name }}</p>
-				<strong>Acteurs :</strong>
-				<ul>
-					{% for actor in program.actors %}
-						<li>{{ actor.name }}</li>
-					{% else %}
-						<li>Aucun acteur pour cette série</li>
-					{% endfor %}
-				</ul>
-				<div class="row justify-content-center">
-					{% for season in seasons %}
-						<div class="col-lg-3 col-md-6 mx-auto mt-1">
-							<a class="btn w-100 bg-light" href="{{ path("program_season_show", { slug: program.slug, season: season.id }) }}">
-								<p class="text-center align-self-center">Saison -
-									{{ season.number }}
-								</p>
-							</a>
-						</div>
-					{% endfor %}
-				</div>
+		<img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
+		<div class="media-body">
+			<h1 class="mt-0 page-title text-secondary">{{ program.title }}</h1>
+			<p class="mx-2">{{ program.synopsis }}</p>
+			<p class="mx-2 text-secondary">Catégorie :
+				{{ program.category.name }}</p>
+			<strong>Acteurs :</strong>
+			<ul>
+				{% for actor in program.actors %}
+					<li>{{ actor.name }}</li>
+				{% else %}
+					<li>Aucun acteur pour cette série</li>
+				{% endfor %}
+			</ul>
+			<div class="row justify-content-center">
+				{% for season in seasons %}
+					<div class="col-lg-3 col-md-6 mx-auto mt-1">
+						<a class="btn w-100 bg-light" href="{{ path("program_season_show", { slug: program.slug, season: season.id }) }}">
+							<p class="text-center align-self-center">Saison -
+								{{ season.number }}
+							</p>
+						</a>
+					</div>
+				{% endfor %}
 			</div>
-
+		</div>
+		{% if is_granted("ROLE_ADMIN") %}
+			<a href="{{ path('program_edit', { 'slug': program.slug} ) }}">Éditer</a>
+		{% endif %}
 
 		<a href="{{ path('program_index') }}">
 			Retour à la liste des programmes
