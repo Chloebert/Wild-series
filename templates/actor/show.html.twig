@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	<div class="bg-primary mt-4 rounded container">
+	<div class="bg-primary media mt-4 rounded container">
 			<h1 class="mt-0 page-title text-light">{{ actor.name }}</h1>
 			<div class="row justify-content-center">
 				 {% for program in actor.programs %}
@@ -12,15 +12,16 @@
 						<a class="w-50 btn bg-light" href="">
 							<p class="text-center align-self-center">Séries : 
 								{{ program.title }}
+								
 							</p>
 						</a>
 					</div>
 				 {% endfor %}
 			</div>
 		</div>
-		</div>
 		<a href="{{ path('actor_index') }}">
 			Retour à la liste des acteurs
 		</a>
+	</div>
 	</div>
 {% endblock %}

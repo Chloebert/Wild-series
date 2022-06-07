@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400;0,500;1,400&family=Fjord+One&family=Gafata&display=swap');
 
 $primary : #aaace4;
-$secondary: #4f31a3;
-$dark: #696767;
+$secondary: #392179;
+$dark: #1a133f;
 $light: #EFEEEE;
 
 @import "~bootstrap/scss/bootstrap";
@@ -12,7 +12,11 @@ $title-font: 'Fjord One', serif;
 $main-font: 'Gafata', sans-serif;
 
 body {
-    background-color: $light;
+    height: 100%;
+    background-color: rgba(248,249,255,1);
+    background: linear-gradient(180deg, rgba(170,172,228,1) 10%, rgba(210,211,224,1) 29%, rgba(248,249,255,1) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .welcome {
@@ -62,10 +66,18 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    color: $light;
+}
+
 .btn {
     opacity: 90%;
 }
 
 .btn:hover {
     opacity:100%;
+}
+
+.media {
+    border: 2px solid $secondary;
 }

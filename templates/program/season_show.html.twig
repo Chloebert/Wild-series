@@ -1,22 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Saison #{{ season.number }} {% endblock %}
+{% block title %}Saison #{{ season.number }}
+{% endblock %}
 
 {% block body %}
-    <div class="media">
-        <img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
-        <div class="media-body">
-            <h1 class="mt-0">Saison {{ season.number }} de {{ program.title }}</h1>
-            <p>{{ season.description }}</p>
-                    {% for episode in episodes %}
-        <div>
-             <a href="{{ path("program_episode_show", { slug: program.slug, season: season.id, episodeSlug: episode.slug  }) }}"> <p>Episode {{ episode.number }} : {{ episode.title }} </p></a>
-        </div>
-    {% endfor %}
-        </div>
-    </div>
+	<div class="media bg-primary mt-4 rounded container">
+			<div class="media-body d-flex flex-column align-items-center">
+				<h1 class="mt-2 mt-0 page-title text-light">Saison
+					{{ season.number }}
+					-
+					{{ program.title }}</h1>
+				<p class="text-secondary">{{ season.description }}</p>
+				<div class="row">
+					{% for episode in episodes %}
+						<div class="col-lg-4 mt-1 mx-auto">
+							<a class="w-100 btn bg-light" href="{{ path("program_episode_show", { slug: program.slug, season: season.id, episodeSlug: episode.slug }) }}">
+								<p>Episode
+									{{ episode.number }}
+									:
+									{{ episode.title }}
+								</p>
+							</a>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
 
-    <a href="{{ path('program_index') }}">
-        Retour à la liste des programmes
-    </a>
+		<div class="my-2">
+        <a href="{{ path('program_index') }}">
+			Retour à la liste des programmes
+		</a>
+        </div>
+	</div>
 {% endblock %}
