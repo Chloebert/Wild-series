@@ -7,6 +7,12 @@
     <div class="bg-primary mt-4 rounded container">
 
     <h1 class="page-title text-light mt-5 pt-2 text-center">Nos séries </h1>
+	<div class="search-form d-flex justify-content-end">
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<button type="submit">Chercher</button>
+		{{ form_end(form) }}
+	</div>
     
 		{% for program in programs %}
 	<div class="row mx-auto">
