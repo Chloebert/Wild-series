@@ -22,17 +22,28 @@ use App\Entity\Episode;
 use App\Entity\Comment;
 use App\Service\Slugify;
 use App\Form\CommentType;
+use App\Form\SearchProgramFormType;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 #[Route('/program', name: 'program_')]
 class ProgramController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(ProgramRepository $programRepository): Response
+    public function index(ProgramRepository $programRepository, Request $request): Response
     {
-        $programs = $programRepository->findAll();
+        $form = $this->createForm(SearchProgramFormType::class);
+        $form->handleRequest($request);
 
-        return $this->render('program/index.html.twig', [
+        if ($form->isSubmitted() && $form->isValid()) {
+            $search = $form->getData()['search'];
+            $programs = $programRepository->findLikeTitleOrActor($search);
+        } else {
+            $programs = $programRepository->findAll();
+        }
+
+        return $this->renderForm('program/index.html.twig', [
             'programs' => $programs,
+            'form' => $form,
         ]);
     }
 
@@ -53,6 +64,8 @@ class ProgramController extends AbstractController
             $program->setSlug($slug);
             $program->setOwner($this->getUser());
             $programRepository->add($program, true);
+
+            $this->addFlash('success', 'The new program has been created');
 
             $email = (new Email())
             ->from($this->getParameter('mailer_from'))
@@ -85,6 +98,7 @@ class ProgramController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $programRepository->add($program, true);
+            $this->addFlash('success', 'The program has been modified');
 
             return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
         }
